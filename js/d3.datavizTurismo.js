@@ -166,7 +166,7 @@ d3.datavizTurismo = function(containerId,width,cb) {
   _init();
 
   return {
-   
+
     update: function(ciudades,field,name){
 
       if(ciudades.length === 0) {
@@ -197,9 +197,9 @@ d3.datavizTurismo = function(containerId,width,cb) {
 
       svg.selectAll('circle.ciudad')
       .on("mouseover", function(d) {
-              var innerHTML = d.ciudad + '<br/><strong>' + name + '<br/>' + DatavizTurismo.dotSeparateNumber(d[field]) + '</strong>';        
-              tooltip.transition()        
-                     .duration(100)      
+              var innerHTML = d.ciudad + '<br/><strong>' + name + '<br/>' + DatavizTurismo.dotSeparateNumber(d[field]) + '</strong>';
+              tooltip.transition()
+                     .duration(100)
                      .style("opacity", .9)
 
               tooltip.html(innerHTML);
@@ -207,9 +207,9 @@ d3.datavizTurismo = function(containerId,width,cb) {
           })
           .on("mouseout", function(d) {
               $(this)[0].classList.remove("hover");
-              tooltip.transition()        
-                      .duration(200)      
-                      .style("opacity", 0);   
+              tooltip.transition()
+                      .duration(200)
+                      .style("opacity", 0);
           })
       .transition(500)
       .attr("r",function(d){
