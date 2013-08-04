@@ -1,5 +1,3 @@
-
-
 var DatasetFilter = function() {
 
   var dataset = {};
@@ -84,6 +82,22 @@ var DatasetFilter = function() {
 
     return data;
 
-  }
+  };
+
+  this.ranking = function(data, field, sortOrder, limit) {
+
+    sortOrder = (sortOrder || 'desc').toLowerCase();
+    limit = limit || 5;
+
+    var sorted = _.sortBy(data, function(row) {
+      return row[field];
+    });
+
+    if (sortOrder === 'desc') sorted = sorted.reverse();
+
+    sorted = sorted.slice(0, limit);
+
+    return sorted;
+  };
 
 };
