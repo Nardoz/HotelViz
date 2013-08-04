@@ -93,12 +93,12 @@ var DatavizTurismo;
 
     $('#dateSelector').dateRangeSlider({
       bounds: {
-        min: new Date(2011, 0, 1),
-        max: new Date(2012, 11, 31)
+        min: new Date(2012, 0, 1),
+        max: new Date(2012, 11, 30)
       },
       defaultValues: {
-        min: new Date(2011, 0, 1),
-        max: new Date(2011, 11, 31)
+        min: new Date(2012, 4, 1),
+        max: new Date(2012, 7, 31)
       },
       arrows: true,
       step:{
@@ -122,6 +122,15 @@ var DatavizTurismo;
           tickContainer.addClass('month');
         }
       }]
+    });
+
+    $('#dateSelector').bind('valuesChanged', function(e, data) {
+      var start = (data.values.min.getMonth() + 1) + '-' + data.values.min.getFullYear();
+      var end   = (data.values.max.getMonth() + 1) + '-' + data.values.max.getFullYear();
+
+      DatavizTurismo.$desdeBtn.val(start);
+      DatavizTurismo.$hastaBtn.val(end);
+      DatavizTurismo.filterData();
     });
 
   };
