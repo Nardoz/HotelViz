@@ -133,6 +133,33 @@ var DatavizTurismo;
       DatavizTurismo.filterData();
     });
 
+    window.m = 0;
+    $('#play').click(function() {
+
+      if($(this).hasClass('playing')) {
+
+        $(this).removeClass('playing').html('&#9658');
+        clearInterval(interval);
+
+      } else {
+
+        $(this).addClass('playing').html('&#9689;');
+
+        window.interval = setInterval(function() {
+
+          $("#dateSelector").dateRangeSlider("values", new Date(2012, m, 1), new Date(2012, m, 27));
+
+          if(m < 10) {
+            m++;
+          } else {
+            m = 0;
+          }
+
+        }, 300);
+      }
+
+    });
+
   };
 
   DatavizTurismo.retrieveData = function(){
