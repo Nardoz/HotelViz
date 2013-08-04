@@ -167,7 +167,7 @@ d3.datavizTurismo = function(containerId,width,cb) {
 
   return {
 
-    update: function(ciudades,field,name){
+    update: function(ciudades, field, name){
 
       if(ciudades.length === 0) {
         return;
@@ -178,7 +178,7 @@ d3.datavizTurismo = function(containerId,width,cb) {
       .domain([
         d3.min(ciudades, function(d) { return d[field]; }),
         d3.max(ciudades, function(d) { return d[field]; })
-        ]);
+      ]);
 
       var group = svg.selectAll('g.ciudades');
 
@@ -191,12 +191,19 @@ d3.datavizTurismo = function(containerId,width,cb) {
         return d.ciudad;
       })
       .attr("num", function(d){
-        return DatavizTurismo.dotSeparateNumber(d[field]);
+        // return DatavizTurismo.dotSeparateNumber(d[field]);
+        return DatavizTurismo.dotSeparateNumber(d.valor);
       })
       .attr("class", "ciudad")
       .attr("transform", function(d) {
         return "translate(" + projection([d.lon,d.lat]) + ")";
       });
+
+      // svg.selectAll('circle.ciudad')
+      // .data(ciudades)
+      // .attr("num", function(d){
+      //   return DatavizTurismo.dotSeparateNumber(d.valor);
+      // });
 
       svg.selectAll('circle.ciudad')
       .on("mouseover", function(d) {
@@ -220,7 +227,7 @@ d3.datavizTurismo = function(containerId,width,cb) {
           })
       .transition(500)
       .attr("r",function(d){
-        return r(d[field]);
+        return r(d.valor);
       });
 
     }

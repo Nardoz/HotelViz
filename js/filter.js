@@ -22,14 +22,17 @@ var DatasetFilter = function() {
       return data;
     }
 
-    var monthFrom = dateFrom.split('-')[0];
-    var yearFrom  = dateFrom.split('-')[1];
+    var monthFrom = parseInt(dateFrom.split('-')[0]);
+    var yearFrom  = parseInt(dateFrom.split('-')[1]);
 
-    var monthTo = dateTo.split('-')[0];
-    var yearTo  = dateTo.split('-')[1];
+    var monthTo = parseInt(dateTo.split('-')[0]);
+    var yearTo  = parseInt(dateTo.split('-')[1]);
 
     var filtered = _.filter(dataset, function(item) {
-      return (item.anio >= yearFrom && item.mes >= monthFrom) && (item.anio <= yearTo && item.mes <= monthTo);
+      return (
+        (parseInt(item.anio) >= yearFrom  && parseInt(item.mes) >= monthFrom) &&
+        (parseInt(item.anio) <= yearTo    && parseInt(item.mes) <= monthTo)
+      );
     });
 
     var groupedByCity = _.groupBy(filtered, function(item) {

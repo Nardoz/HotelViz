@@ -6,7 +6,7 @@ var DatasetChart = {};
 
 DatasetChart.graph = function(data) {
 
-  data = DatasetChart._parseData(data);
+  data = DatasetChart._parseData(_.clone(data));
 
   nv.addGraph(function() {
     var chart = nv.models.multiBarHorizontalChart()
