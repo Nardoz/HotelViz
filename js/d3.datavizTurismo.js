@@ -17,7 +17,9 @@ d3.datavizTurismo = function(containerId,width) {
     AMBA_IDS = ["D02003", "D02004", "D02011", "D02017", "D02035", "D02036", "D02132", "D02038", "D02051", "D02052", "D02134", "D02133", "D02129", "D02061", "D02063", "D02062", "D02070", "D02130", "D02075", "D02077", "D02079", "D02080", "D02089", "D02128", "D02092", "D02105", "D02106", "D02053", "D02109", "D02113", "D02118", "D02122", "CAPFED"],
     scale,
     tooltip,
-    ciudades;
+    ciudades,
+    centered,
+    zoom;
   
   function _init() {
     _createMap();
@@ -51,12 +53,22 @@ d3.datavizTurismo = function(containerId,width) {
     return e.replace(/\s+/g, "-").toLowerCase()
   };
 
+  function zoomed() {
+    mapa_svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+  };
+
   function _createPath() {
     scale = d3.geo.mercator().scale(900).center([-65, -34]).translate([width / 2 - 30, height / 2 - 125]);
     projection = scale;
     path = d3.geo.path().projection(scale);
 
     d3.json(window.location.pathname+"data/argentina.json", function(error, e) {
+
+        zoom = d3.behavior.zoom()
+          .translate([0, 0])
+          .scale(1)
+          .scaleExtent([1, 8])
+          .on("zoom", zoomed);
 
         //mapa
         mapa_svg = svg.append("g").classed("mapa", !0).attr("transform", "translate(0, 0)");
@@ -65,7 +77,7 @@ d3.datavizTurismo = function(containerId,width) {
         provincias = mapa_svg.append("g").attr("class", "provincias");
         legend = svg.append("g").attr("class", "legend");
 
-        ciudades = svg.append("g").attr("class", "ciudades");
+        ciudades = mapa_svg.append("g").attr("class", "ciudades");
         
         var featuresProvincias = topojson.feature(e, e.objects.provincias).features,
             featuresDepartamentos = topojson.feature(e, e.objects.departamentos).features;
@@ -122,6 +134,12 @@ d3.datavizTurismo = function(containerId,width) {
           })
           .attr("d", path)
           .attr("class", "departamento");
+
+        svg.append("rect")
+              .attr("class", "overlay")
+              .attr("width", width)
+              .attr("height", height)
+              .call(zoom);
 
          //Tooltip
         var m = mapa_svg.selectAll("path.departamento");
