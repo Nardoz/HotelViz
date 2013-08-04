@@ -190,6 +190,9 @@ d3.datavizTurismo = function(containerId,width,cb) {
       .attr("id", function(d){
         return d.ciudad;
       })
+      .attr("num", function(d){
+        return DatavizTurismo.dotSeparateNumber(d[field]);
+      })
       .attr("class", "ciudad")
       .attr("transform", function(d) {
         return "translate(" + projection([d.lon,d.lat]) + ")";
@@ -197,7 +200,11 @@ d3.datavizTurismo = function(containerId,width,cb) {
 
       svg.selectAll('circle.ciudad')
       .on("mouseover", function(d) {
-              var innerHTML = d.ciudad + '<br/><strong>' + name + '<br/>' + DatavizTurismo.dotSeparateNumber(d[field]) + '</strong>';
+
+              var ciudad = $(this)[0].id;
+              var dato = $(this)[0].getAttribute('num');
+
+              var innerHTML = ciudad + '<br/><strong>' + name + '<br/>' + dato + '</strong>';
               tooltip.transition()
                      .duration(100)
                      .style("opacity", .9)
