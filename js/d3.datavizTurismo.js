@@ -156,10 +156,23 @@ d3.datavizTurismo = function(containerId,width) {
     
     update: function(ciudades,field){
 
-      var circulos = svg.selectAll('circle.ciudad')
+      var r = d3.scale.linear()
+      .range([0, 100])
+      .domain([
+        d3.min(ciudades, function(d) { return d[field]; }), 
+        d3.max(ciudades, function(d) { return d[field]; })
+        ]);
+
+      var group = svg.selectAll('g.ciudades');
+
+      var circulos = group
+      .selectAll('circle.ciudad')
       .data(ciudades)
       .enter()
       .append("circle")
+      .attr("id", function(d){
+        return d.ciudad;
+      })
       .attr("class", "ciudad")
       .attr("transform", function(d) {
         return "translate(" + projection([d.lon,d.lat]) + ")"; 
@@ -168,7 +181,7 @@ d3.datavizTurismo = function(containerId,width) {
       svg.selectAll('circle.ciudad')
       .transition(1000)
       .attr("r",function(d){
-        return d[field]/100;
+        return r(d[field]);
       });
 
     }
