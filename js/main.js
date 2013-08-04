@@ -275,7 +275,7 @@ var DatavizTurismo;
   };
 
   DatavizTurismo.updateMap = function (ciudades) {
-    DatavizTurismo.map.update(ciudades,DatavizTurismo.$filter.val());
+    DatavizTurismo.map.update(ciudades,DatavizTurismo.$filter.val(),DatavizTurismo.$filter.find(":selected").text());
   };
 
   DatavizTurismo.dotSeparateNumber = function(val){
