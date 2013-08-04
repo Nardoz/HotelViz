@@ -89,7 +89,7 @@ var DatavizTurismo;
     DatavizTurismo.$fullScreenBtb.on('click',DatavizTurismo.fullScreen);
 
 
-    var months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sept', 'Oct', 'Nov', 'Dic'];
+    var months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 
     $('#dateSelector').dateRangeSlider({
       bounds: {
@@ -111,8 +111,6 @@ var DatavizTurismo;
         return month + '-' + year;
       },
       scales: [{
-        first: function(value) { return value; },
-        end: function(value) { return value; },
         next: function(value) {
           var next = new Date(value);
           return new Date(next.setMonth(value.getMonth() + 1));
@@ -121,7 +119,7 @@ var DatavizTurismo;
           return months[value.getMonth()];
         },
         format: function(tickContainer, tickStart, tickEnd) {
-          tickContainer.addClass("myCustomClass");
+          tickContainer.addClass('month');
         }
       }]
     });
@@ -133,7 +131,7 @@ var DatavizTurismo;
     $.getJSON('data/ocupacion_hotelera.json', function(j){
       DatavizTurismo.data = j.rows;
       DatavizTurismo.filter.setDataset(j.rows);
-        
+
       setTimeout(DatavizTurismo.filterData,2000);
 
     });
