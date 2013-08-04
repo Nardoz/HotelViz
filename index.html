@@ -1,0 +1,94 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Población de Argentina | Experimento D3.js</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Pablo H. Paladino @palamago">
+
+    <meta name="Title" content="Argentina, un país POCO federal..." />
+    <meta name="og:title" content="Argentina, un país POCO federal..." />
+    <meta name="description" content="El 50% de la población vive en el 1.607% del territorio Argentino." />
+    <meta name="og:description" content="El 50% de la población vive en el 1.607% del territorio Argentino." />
+    <meta name="og:image" content="http://arena.palamago.com.ar/poblacion/img/share.png" />
+    <link rel="image_src" href="http://arena.palamago.com.ar/poblacion/img/share.png" />
+
+    <!-- CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+
+    <link href="css/slider.css" rel="stylesheet">
+
+    <link href="css/bootstrap-select.min.css" rel="stylesheet">
+
+    <link href="css/bootstrap-glyphicons.css" rel="stylesheet">
+
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+
+
+    <div class="container">
+      <div id="main-container" class="row">
+        <div id="map-column" class="col-lg-6">
+          <div id="map-container">
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <select id="fecha-desde">
+            <option value="01-2012">01-2012</option>
+            <option value="02-2012">02-2012</option>
+            <option value="03-2012">03-2012</option>
+          </select>
+          <select id="fecha-hasta">
+            <option value="01-2012">01-2012</option>
+            <option value="02-2012">02-2012</option>
+            <option value="03-2012">03-2012</option>
+          </select>
+          <select id="filter">
+            <option value="establecimientos">establecimientos</option>
+            <option value="viajeros">viajeros</option>
+          </select>
+          <a id="consultar" class="btn btn-large" href="javascript:;">Consultar</a>
+          <h1>Argentina <small>, turismo!...</small></h1>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p class="text-center">
+          Programación: <a href="http://twitter.com/palamago" target="_blank">@palamago</a> | Diseño: <a href="http://twitter.com/abad" target="_blank">@abad</a>
+        </p>
+        <p class="text-center">
+          Construído con información del <a href="http://www.censo2010.indec.gov.ar/" target="_blank">Censo 2010</a> basado en la <a href="http://interactivos.lanacion.com.ar/censo/" target="_blank">aplicación interactiva</a> creada por el equipo de <a href="http://twitter.com/LNData" target="_blank">@LNData</a>
+        </p>
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <a id="full-screen-btn" class="btn btn-default btn-mini"><span class="glyphicon glyphicon-resize-full"></span>
+    </a>
+
+    <script src="js/underscore.js"></script>
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src='js/knockout-2.3.0.js'></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-slider.js"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+    <script src="js/topojson.v1.min.js"></script>
+    <script src="js/d3.min.js"></script>
+    <script src="js/d3.datavizTurismo.js"></script>
+    <script src="js/filter.js"></script>
+    <script src="js/main.js"></script>
+    
+  </body>
+</html>

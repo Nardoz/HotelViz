@@ -1,0 +1,62 @@
+[
+{
+	ciudad:"buenos aires",
+	provincia: "Buenos Aires",
+	lat:234.34,
+	lng:234.34,
+	h_disponibles: 2342,
+	h_ocupadas:2343,
+	p_disponobles: 323,
+	p_ocupadas:232,
+	establecimientos:3234,
+	viajeros:500,
+	anio:2013,
+	mes:2
+},
+{
+	ciudad:"buenos aires",
+	provincia: "Buenos Aires",
+	lat:234.34,
+	lng:234.34,
+	h_disponibles: 2342,
+	h_ocupadas:2343,
+	p_disponobles: 323,
+	p_ocupadas:232,
+	establecimientos:432,
+	viajeros:1000,
+	anio:2013,
+	mes:1
+}
+]
+
+FILTER
+desde:2012-08
+hasta:2013-01
+
+[
+{
+	ciudad:"Bahía Blanca",
+	provincia: "Buenos Aires",
+	lat:-38.71167760000001,
+	lng:-62.26807780000001,
+	h_disponibles: 2342,
+	h_ocupadas:2343,
+	p_disponobles: 323,
+	p_ocupadas:232,
+	establecimientos:3234,
+	viajeros:234
+},
+{
+	ciudad:"buenos aires",
+	provincia: "Buenos Aires",
+	lat:234.34,
+	lng:234.34,
+	h_disponibles: 2342,
+	h_ocupadas:2343,
+	p_disponobles: 323,
+	p_ocupadas:232,
+	establecimientos:3234,
+	viajeros:234
+}
+]
+
