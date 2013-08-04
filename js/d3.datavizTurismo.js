@@ -1,7 +1,7 @@
 d3.datavizTurismo = function(containerId,width,cb) {
 
   //Init vars
-  var height=700,
+  var height=750,
     centered,
     projection,
     path,
@@ -196,7 +196,7 @@ d3.datavizTurismo = function(containerId,width,cb) {
       });
 
       svg.selectAll('circle.ciudad')
-      .transition(1000)
+      .transition(500)
       .attr("r",function(d){
         return r(d[field]);
       });

@@ -130,6 +130,8 @@ var DatavizTurismo;
       DatavizTurismo.filterData();
     });
 
+    DatavizTurismo.$filter.selectpicker();
+
     window.m = 0;
     $('#play').click(function() {
 

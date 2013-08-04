@@ -45,19 +45,29 @@
           </div>
         </div>
         <div class="col-lg-6">
-
-          <div id="dateSelector" style="margin-top:50px"></div>
-          <input type="hidden" id="fecha-desde" value="04-2012" />
-          <input type="hidden" id="fecha-hasta" value="07-2012" />
-
-          <select id="filter" style="margin-top:50px">
-            <option value="establecimientos">establecimientos</option>
-            <option value="viajeros">viajeros</option>
-          </select>
-
-          <button id="play">&#9658;</button>
-
           <h1>Argentina <small>, turismo!...</small></h1>
+
+          <div id="slider-container" class="row">
+            <div class="col-lg-12">
+              <div id="dateSelector" style="margin-top:50px"></div>
+              <input type="hidden" id="fecha-desde" value="04-2012" />
+              <input type="hidden" id="fecha-hasta" value="07-2012" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <select id="filter" class="" style="margin-top:50px">
+                <option value="establecimientos">Establecimientos</option>
+                <option value="viajeros">Viajeros</option>
+                <option value="estadia">Estadía promedio</option>
+                <option value="habitaciones_disp">Habitaciones Disponibles</option>
+                <option value="habitaciones_ocup">Habitaciones Ocupadas</option>
+                <option value="plazas_disp">Plazas Disponibles</option>
+                <option value="plazas_ocup">Plazas Ocupadas</option>
+              </select>
+              <button id="play">&#9658;</button>
+            </div>
+          </div>
         </div>
       </div>
 
