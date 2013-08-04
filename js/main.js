@@ -82,7 +82,7 @@ var DatavizTurismo;
     DatavizTurismo.retrieveData();
 
     //Init button
-    DatavizTurismo.$consultarBtn.on('click',DatavizTurismo.filterData);
+    DatavizTurismo.$filter.on('change',DatavizTurismo.filterData);
     DatavizTurismo.$twitterButton.on('click',DatavizTurismo.shareTwitter);
     DatavizTurismo.$facebookButton.on('click',DatavizTurismo.shareFacebook);
     DatavizTurismo.$googleButton.on('click',DatavizTurismo.shareGoogle);
