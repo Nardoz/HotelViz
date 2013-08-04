@@ -196,7 +196,7 @@ d3.datavizTurismo = function(containerId,width,cb) {
       });
 
       svg.selectAll('circle.ciudad')
-      .transition(1000)
+      .transition(500)
       .attr("r",function(d){
         return r(d[field]);
       });
