@@ -87,6 +87,45 @@ var DatavizTurismo;
     DatavizTurismo.$facebookButton.on('click',DatavizTurismo.shareFacebook);
     DatavizTurismo.$googleButton.on('click',DatavizTurismo.shareGoogle);
     DatavizTurismo.$fullScreenBtb.on('click',DatavizTurismo.fullScreen);
+
+
+    var months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sept', 'Oct', 'Nov', 'Dic'];
+
+    $('#dateSelector').dateRangeSlider({
+      bounds: {
+        min: new Date(2011, 0, 1),
+        max: new Date(2012, 11, 31)
+      },
+      defaultValues: {
+        min: new Date(2011, 0, 1),
+        max: new Date(2011, 11, 31)
+      },
+      arrows: true,
+      step:{
+        months: 1
+      },
+      formatter: function(val) {
+        var month = val.getMonth() + 1;
+        var year = val.getFullYear();
+
+        return month + '-' + year;
+      },
+      scales: [{
+        first: function(value) { return value; },
+        end: function(value) { return value; },
+        next: function(value) {
+          var next = new Date(value);
+          return new Date(next.setMonth(value.getMonth() + 1));
+        },
+        label: function(value) {
+          return months[value.getMonth()];
+        },
+        format: function(tickContainer, tickStart, tickEnd) {
+          tickContainer.addClass("myCustomClass");
+        }
+      }]
+    });
+
   };
 
   DatavizTurismo.retrieveData = function(){
