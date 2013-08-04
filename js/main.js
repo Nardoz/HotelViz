@@ -1,4 +1,4 @@
-/*globals window, document, DatasetFilter, _, jQuery, d3, ko*/
+/*globals window, document, DatasetFilter, DatasetChart, _, jQuery, d3, ko*/
 
 var DatavizTurismo;
 
@@ -200,6 +200,9 @@ var DatavizTurismo;
 
     DatavizTurismo.bindings.filterField(filterField);
     DatavizTurismo.bindings.cities(cities);
+
+    DatasetChart.graph(DatavizTurismo.bindings.topRanking());
+
   };
 
   DatavizTurismo.fullScreen = function() {

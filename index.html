@@ -11,9 +11,42 @@
     <link href="css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/bootstrap-glyphicons.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+
+    <link href="js/nvd3/nv.d3.css" rel="stylesheet" type="text/css">
+
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
     <![endif]-->
+
+<style>
+
+text {
+  font: 12px sans-serif;
+}
+
+svg {
+  display: block;
+}
+
+svg text {
+  fill: white;
+  font-weight: bolder
+}
+
+#chart1 svg {
+  height: 300px;
+  min-width: 400px;
+  min-height: 100px;
+/*
+  margin: 10px;
+  Minimum height and width is a good idea to prevent negative SVG dimensions...
+  For example width should be =< margin.left + margin.right + 1,
+  of course 1 pixel for the entire chart would not be very useful, BUT should not have errors
+*/
+}
+
+</style>
+
   </head>
   <body>
 
@@ -48,7 +81,7 @@
             </div>
           </div>
 
-          <div class="row">
+<!--           <div class="row">
             <div class="col-lg-12">
 
               <h2>Ranking de ciudades</h2>
@@ -84,6 +117,21 @@
                 </tr>
                 </tbody>
               </table>
+
+            </div>
+          </div>
+
+ -->
+          <div class="row">
+            <br />
+            <br />
+            <h2>Ranking de ciudades</h2>
+            <br />
+            <div class="col-lg-12">
+
+              <div id="chart1">
+                <svg></svg>
+              </div>
 
             </div>
           </div>
@@ -125,6 +173,14 @@
     <script src="js/d3.datavizTurismo.js"></script>
     <script src="js/filter.js"></script>
     <script src="js/main.js"></script>
+
+    <script src="js/nvd3/nv.d3.js"></script>
+    <!-- including all the components so I don't have to minify every time I test in development -->
+    <script src="js/nvd3/tooltip.js"></script>
+    <script src="js/nvd3/utils.js"></script>
+    <script src="js/nvd3/axis.js"></script>
+    <script src="js/nvd3/multiBarHorizontalChart.js"></script>
+    <script src="js/barChart.js"></script>
 
   </body>
 </html>
