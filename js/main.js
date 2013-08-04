@@ -94,7 +94,9 @@ var DatavizTurismo;
     $.getJSON('data/ocupacion_hotelera.json', function(j){
       DatavizTurismo.data = j.rows;
       DatavizTurismo.filter.setDataset(j.rows);
-      DatavizTurismo.filterData();
+        
+      setTimeout(DatavizTurismo.filterData,2000);
+
     });
 
   };
