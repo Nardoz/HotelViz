@@ -20,7 +20,7 @@ d3.datavizTurismo = function(containerId,width,cb) {
     ciudades,
     centered,
     zoom;
-  
+
   function _init() {
     _createMap();
     _createTooltip();
@@ -28,9 +28,9 @@ d3.datavizTurismo = function(containerId,width,cb) {
   };
 
   function _createTooltip() {
-    //Crea el tooltip            
-    tooltip = d3.select("body").append("div")   
-                .attr("id", "tooltip")               
+    //Crea el tooltip
+    tooltip = d3.select("body").append("div")
+                .attr("id", "tooltip")
                 .style("opacity", 0);
 
     svg.on("mousemove", mousemove);
@@ -72,16 +72,16 @@ d3.datavizTurismo = function(containerId,width,cb) {
 
         //mapa
         mapa_svg = svg.append("g").classed("mapa", !0).attr("transform", "translate(0, 0)");
-        
+
         departamentos = mapa_svg.append("g").attr("class", "departamentos");
         provincias = mapa_svg.append("g").attr("class", "provincias");
         legend = svg.append("g").attr("class", "legend");
 
         ciudades = mapa_svg.append("g").attr("class", "ciudades");
-        
+
         var featuresProvincias = topojson.feature(e, e.objects.provincias).features,
             featuresDepartamentos = topojson.feature(e, e.objects.departamentos).features;
-        
+
         provincias.selectAll("path")
           .data(featuresProvincias)
           .enter()
@@ -91,7 +91,7 @@ d3.datavizTurismo = function(containerId,width,cb) {
           })
           .attr("d", path)
           .attr("class", "provincia");
-  
+
 
         gran_buenos_aires = departamentos.append("g")
           .attr("class", "gran-buenos-aires");
@@ -143,11 +143,11 @@ d3.datavizTurismo = function(containerId,width,cb) {
 
          //Tooltip
         var m = mapa_svg.selectAll("path.departamento");
- 
+
           m.on("mouseover", function(d) {
-              var innerHTML = d.properties.a + '<br/><strong>' + d.properties.p + '</strong>';        
-              tooltip.transition()        
-                     .duration(100)      
+              var innerHTML = d.properties.a + '<br/><strong>' + d.properties.p + '</strong>';
+              tooltip.transition()
+                     .duration(100)
                      .style("opacity", .9)
 
               tooltip.html(innerHTML);
@@ -155,9 +155,9 @@ d3.datavizTurismo = function(containerId,width,cb) {
           })
           .on("mouseout", function(d) {
               $(this)[0].classList.remove("hover");
-              tooltip.transition()        
-                      .duration(200)      
-                      .style("opacity", 0);   
+              tooltip.transition()
+                      .duration(200)
+                      .style("opacity", 0);
           });
 
         //callback
@@ -170,13 +170,17 @@ d3.datavizTurismo = function(containerId,width,cb) {
   _init();
 
   return {
-    
+
     update: function(ciudades,field){
+
+      if(ciudades.length === 0) {
+        return;
+      }
 
       var r = d3.scale.linear()
       .range([0, 100])
       .domain([
-        d3.min(ciudades, function(d) { return d[field]; }), 
+        d3.min(ciudades, function(d) { return d[field]; }),
         d3.max(ciudades, function(d) { return d[field]; })
         ]);
 
@@ -192,7 +196,7 @@ d3.datavizTurismo = function(containerId,width,cb) {
       })
       .attr("class", "ciudad")
       .attr("transform", function(d) {
-        return "translate(" + projection([d.lon,d.lat]) + ")"; 
+        return "translate(" + projection([d.lon,d.lat]) + ")";
       });
 
       svg.selectAll('circle.ciudad')
