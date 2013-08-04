@@ -91,7 +91,7 @@ var DatavizTurismo;
     $('#dateSelector').dateRangeSlider({
       bounds: {
         min: new Date(2012, 0, 1),
-        max: new Date(2012, 11, 30)
+        max: new Date(2012, 12, 30)
       },
       defaultValues: {
         min: new Date(2012, 4, 1),
