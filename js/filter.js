@@ -1,3 +1,5 @@
+/*globals _*/
+
 var DatasetFilter = function() {
 
   var dataset = {};
@@ -46,8 +48,7 @@ var DatasetFilter = function() {
         memo2.plazas_ocup       = memo2.plazas_ocup + item.plazas_ocup;
         memo2.establecimientos  = memo2.establecimientos + item.establecimientos;
         memo2.viajeros          = memo2.viajeros + item.viajeros;
-        memo2.estadiaAcum       = memo2.estadiaAcum + item.estadia;
-        memo2.estadiaCount      = memo2.estadiaCount + 1;
+        memo2.estadia           = memo2.estadia + item.estadia;
         memo2.lat               = item.lat;
         memo2.lon               = item.lon;
         memo2.anio              = item.anio;
@@ -58,8 +59,6 @@ var DatasetFilter = function() {
         return memo2;
       },{
         establecimientos: 0,
-        estadiaCount: 0,
-        estadiaAcum: 0,
         estadia: 0,
         habitaciones_disp: 0,
         habitaciones_ocup: 0,
@@ -74,10 +73,30 @@ var DatasetFilter = function() {
         ciudad: ''
       });
 
-      reduced.estadia = reduced.estadiaAcum / reduced.estadiaCount;
+      /*
+        totals is an object with the totals of several values
+        calculateAverage transforms these totals in averages
+        counting the non-empty items
+       */
+      var calculateAverage = function(data, totals, fields) {
+
+        if (_.isString(fields)) fields = fields.split(',');
+        if (! _.isArray(fields)) fields = [fields];
+
+        _.each(fields, function(field) {
+          var count = _.filter(data, function(row) {
+            return row[field] !== undefined;
+          }).length;
+
+          totals[field] = totals[field] / count;
+        });
+
+        return totals;
+      };
+
+      reduced = calculateAverage(city, reduced, 'establecimientos,estadia');
 
       data.push(reduced);
-
     });
 
     return data;

@@ -60,36 +60,34 @@
           <h2>Ranking de ciudades</h2>
 
           <h3>Las más</h3>
-
-          <table class="table">
+          <table>
             <thead>
               <tr>
                 <th>Ciudad</th>
                 <th>Valor</th>
-            </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>xxx</td>
-                <td>xxx</td>
               </tr>
+            </thead>
+            <tbody data-bind="foreach: topRanking">
+            <tr>
+              <td data-bind="text: ciudad"></td>
+              <td data-bind="text: valor"></td>
+            </tr>
             </tbody>
           </table>
 
           <h3>Las menos</h3>
-
-          <table class="table">
+          <table>
             <thead>
               <tr>
                 <th>Ciudad</th>
                 <th>Valor</th>
-            </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>xxx</td>
-                <td>xxx</td>
               </tr>
+            </thead>
+            <tbody data-bind="foreach: bottomRanking">
+            <tr>
+              <td data-bind="text: ciudad"></td>
+              <td data-bind="text: valor"></td>
+            </tr>
             </tbody>
           </table>
 

@@ -1,4 +1,4 @@
-/*globals window, document, DatasetFilter*/
+/*globals window, document, DatasetFilter, _*/
 
 var DatavizTurismo;
 
@@ -54,18 +54,18 @@ var DatavizTurismo;
   DatavizTurismo.filter = new DatasetFilter();
 
   DatavizTurismo.bindings = {
-    percentage:ko.observable(0),
-    percentageTotal: 0,
-    poblacionTotal:ko.observable(0),
-    superficieTotal:ko.observable(0),
-    cantSelected:ko.observable(0),
-    supSelected:ko.observable(0),
-    percentageSupSelected:0,
-    superficieTotalStr:0,
-    poblacionTotalStr:0,
-    availableFilters:ko.observable(),
-    selectedFilter:ko.observable(),
-    selectedOrder:ko.observable('DESCENDENTE')
+    percentage: ko.observable(0),
+    percentageTotal:  0,
+    poblacionTotal: ko.observable(0),
+    superficieTotal: ko.observable(0),
+    cantSelected: ko.observable(0),
+    supSelected: ko.observable(0),
+    percentageSupSelected: 0,
+    superficieTotalStr: 0,
+    poblacionTotalStr: 0,
+    availableFilters: ko.observable(),
+    selectedFilter: ko.observable(),
+    selectedOrder: ko.observable('DESCENDENTE')
   };
 
   var FilterOption = function(name, id, icon) {
@@ -152,10 +152,35 @@ var DatavizTurismo;
     var filterField = DatavizTurismo.$filter.val(),
         limit = DatavizTurismo.rankingLimit;
 
+    // agregamos el campo valor con el filterField especificado
+    _.each(j, function(row) {
+      row.valor = row[filterField];
+    });
+
     DatavizTurismo.topRanking = filter.ranking(j, filterField, 'desc', limit);
-    DatavizTurismo.botttomRanking = filter.ranking(j, filterField, 'asc', limit);
+    DatavizTurismo.bottomRanking = filter.ranking(j, filterField, 'asc', limit);
+    DatavizTurismo.updateRanking();
 
     DatavizTurismo.updateMap(j);
+  };
+
+  DatavizTurismo.updateRanking = function() {
+
+    var topRanking    = DatavizTurismo.topRanking,
+        bottomRanking = DatavizTurismo.bottomRanking,
+        filterField   = DatavizTurismo.$filter.val();
+
+    // avoid following error
+    // Uncaught Error: You cannot apply bindings multiple times to the same element.
+    if (topRanking.length === 0 || bottomRanking.length === 0) return;
+
+    ko.applyBindings({
+      topRanking: topRanking,
+      bottomRanking: bottomRanking
+    });
+    // if (bottomRanking && bottomRanking.length > 0) {
+    //   ko.applyBindings({ bottomRanking: bottomRanking });
+    // }
   };
 
   DatavizTurismo.fullScreen = function() {
