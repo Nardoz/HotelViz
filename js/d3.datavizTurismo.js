@@ -1,4 +1,4 @@
-d3.datavizTurismo = function(containerId,width) {
+d3.datavizTurismo = function(containerId,width,cb) {
 
   //Init vars
   var height=700,
@@ -144,8 +144,7 @@ d3.datavizTurismo = function(containerId,width) {
          //Tooltip
         var m = mapa_svg.selectAll("path.departamento");
  
-        function addTooltipListener(s) {
-          s.on("mouseover", function(d) {
+          m.on("mouseover", function(d) {
               var innerHTML = d.properties.a + '<br/><strong>' + d.properties.p + '</strong>';        
               tooltip.transition()        
                      .duration(100)      
@@ -160,9 +159,9 @@ d3.datavizTurismo = function(containerId,width) {
                       .duration(200)      
                       .style("opacity", 0);   
           });
-        };
 
-        addTooltipListener(m);
+        //callback
+        cb();
 
     });
 
