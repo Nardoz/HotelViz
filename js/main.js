@@ -53,19 +53,14 @@ var DatavizTurismo;
 
   DatavizTurismo.filter = new DatasetFilter();
 
+  DatavizTurismo.topRanking = [];
+  DatavizTurismo.bottomRanking = [];
+
   DatavizTurismo.bindings = {
-    percentage: ko.observable(0),
-    percentageTotal:  0,
-    poblacionTotal: ko.observable(0),
-    superficieTotal: ko.observable(0),
-    cantSelected: ko.observable(0),
-    supSelected: ko.observable(0),
-    percentageSupSelected: 0,
-    superficieTotalStr: 0,
-    poblacionTotalStr: 0,
-    availableFilters: ko.observable(),
-    selectedFilter: ko.observable(),
-    selectedOrder: ko.observable('DESCENDENTE')
+    topRanking    : [],
+    bottomRanking : [],
+    cities        : ko.observable([]),
+    filterField   : ko.observable('')
   };
 
   var FilterOption = function(name, id, icon) {
@@ -85,8 +80,23 @@ var DatavizTurismo;
     DatavizTurismo.$googleButton.on('click',DatavizTurismo.shareGoogle);
     DatavizTurismo.$fullScreenBtb.on('click',DatavizTurismo.fullScreen);
 
-
     var months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+
+    DatavizTurismo.bindings.topRanking = ko.computed(function() {
+      var cities      = DatavizTurismo.bindings.cities(),
+          filterField = DatavizTurismo.bindings.filterField(),
+          limit       = DatavizTurismo.rankingLimit;
+      return DatavizTurismo.filter.ranking(cities, filterField, 'desc', limit);
+    });
+
+    DatavizTurismo.bindings.bottomRanking = ko.computed(function() {
+      var cities      = DatavizTurismo.bindings.cities(),
+          filterField = DatavizTurismo.bindings.filterField(),
+          limit       = DatavizTurismo.rankingLimit;
+      return DatavizTurismo.filter.ranking(cities, filterField, 'asc', limit);
+    });
+
+    ko.applyBindings(DatavizTurismo.bindings);
 
     $('#dateSelector').dateRangeSlider({
       bounds: {
@@ -130,6 +140,35 @@ var DatavizTurismo;
       DatavizTurismo.filterData();
     });
 
+    DatavizTurismo.$filter.selectpicker();
+
+    window.m = 0;
+    $('#play').click(function() {
+
+      if($(this).hasClass('playing')) {
+
+        $(this).removeClass('playing').html('&#9658');
+        clearInterval(interval);
+
+      } else {
+
+        $(this).addClass('playing').html('&#9689;');
+
+        window.interval = setInterval(function() {
+
+          $("#dateSelector").dateRangeSlider("values", new Date(2012, m, 1), new Date(2012, m, 27));
+
+          if(m < 10) {
+            m++;
+          } else {
+            m = 0;
+          }
+
+        }, 300);
+      }
+
+    });
+
   };
 
   DatavizTurismo.retrieveData = function(){
@@ -157,31 +196,38 @@ var DatavizTurismo;
       row.valor = row[filterField];
     });
 
-    DatavizTurismo.topRanking = filter.ranking(j, filterField, 'desc', limit);
-    DatavizTurismo.bottomRanking = filter.ranking(j, filterField, 'asc', limit);
-    DatavizTurismo.updateRanking();
+    // DatavizTurismo.topRanking = filter.ranking(j, filterField, 'desc', limit);
+    // DatavizTurismo.bottomRanking = filter.ranking(j, filterField, 'asc', limit);
+    // DatavizTurismo.updateRanking();
+
+    var j = _.sortBy(j, function(item) {
+      return item[filterField];
+    }).reverse();
 
     DatavizTurismo.updateMap(j);
+
+    DatavizTurismo.bindings.filterField(filterField);
+    DatavizTurismo.bindings.cities(j);
+
   };
 
-  DatavizTurismo.updateRanking = function() {
+  // DatavizTurismo.updateRanking = function() {
 
-    var topRanking    = DatavizTurismo.topRanking,
-        bottomRanking = DatavizTurismo.bottomRanking,
-        filterField   = DatavizTurismo.$filter.val();
+  //   var topRanking    = DatavizTurismo.topRanking,
+  //       bottomRanking = DatavizTurismo.bottomRanking,
+  //       filterField   = DatavizTurismo.$filter.val();
 
-    // avoid following error
-    // Uncaught Error: You cannot apply bindings multiple times to the same element.
-    if (topRanking.length === 0 || bottomRanking.length === 0) return;
+  //   // avoid following error
+  //   // Uncaught Error: You cannot apply bindings multiple times to the same element.
+  //   if (topRanking.length === 0 || bottomRanking.length === 0) return;
 
-    ko.applyBindings({
-      topRanking: topRanking,
-      bottomRanking: bottomRanking
-    });
-    // if (bottomRanking && bottomRanking.length > 0) {
-    //   ko.applyBindings({ bottomRanking: bottomRanking });
-    // }
-  };
+  //   ko.cleanNode($element[0]);
+
+  //   ko.applyBindings({
+  //     topRanking: topRanking,
+  //     bottomRanking: bottomRanking
+  //   });
+  // };
 
   DatavizTurismo.fullScreen = function() {
     var el = document.documentElement,
@@ -271,7 +317,7 @@ var DatavizTurismo;
   };
 
   DatavizTurismo.updateMap = function (ciudades) {
-    DatavizTurismo.map.update(ciudades,DatavizTurismo.$filter.val());
+    DatavizTurismo.map.update(ciudades,DatavizTurismo.$filter.val(),DatavizTurismo.$filter.find(":selected").text());
   };
 
   DatavizTurismo.dotSeparateNumber = function(val){

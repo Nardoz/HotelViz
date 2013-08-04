@@ -1,42 +1,21 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Población de Argentina | Experimento D3.js</title>
+    <title>Visualización de hoteles en Argentina</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Pablo H. Paladino @palamago">
-
-    <meta name="Title" content="Argentina, un país POCO federal..." />
-    <meta name="og:title" content="Argentina, un país POCO federal..." />
-    <meta name="description" content="El 50% de la población vive en el 1.607% del territorio Argentino." />
-    <meta name="og:description" content="El 50% de la población vive en el 1.607% del territorio Argentino." />
-    <meta name="og:image" content="http://arena.palamago.com.ar/poblacion/img/share.png" />
-    <link rel="image_src" href="http://arena.palamago.com.ar/poblacion/img/share.png" />
-
-    <!-- CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
     <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="css/iThing-min.css" rel="stylesheet">
-
     <link href="css/slider.css" rel="stylesheet">
-
     <link href="css/bootstrap-select.min.css" rel="stylesheet">
-
     <link href="css/bootstrap-glyphicons.css" rel="stylesheet">
-
     <link href="css/style.css" rel="stylesheet">
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
     <![endif]-->
-
   </head>
-
   <body>
-
 
     <div class="container">
       <div id="main-container" class="row">
@@ -45,69 +24,93 @@
           </div>
         </div>
         <div class="col-lg-6">
-
-          <div id="dateSelector" style="margin-top:50px"></div>
-          <input type="hidden" id="fecha-desde" value="04-2012" />
-          <input type="hidden" id="fecha-hasta" value="07-2012" />
-
-          <select id="filter" style="margin-top:50px">
-            <option value="establecimientos">establecimientos</option>
-            <option value="viajeros">viajeros</option>
-          </select>
-
           <h1>Argentina <small>, turismo!...</small></h1>
 
-          <h2>Ranking de ciudades</h2>
+          <div id="slider-container" class="row">
+            <div class="col-lg-12">
+              <div id="dateSelector" style="margin-top:20px"></div>
+              <input type="hidden" id="fecha-desde" value="04-2012" />
+              <input type="hidden" id="fecha-hasta" value="07-2012" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <select id="filter" class="">
+                <option value="establecimientos">Establecimientos</option>
+                <option value="viajeros">Viajeros</option>
+                <option value="estadia">Estadía promedio</option>
+                <option value="habitaciones_disp">Habitaciones Disponibles</option>
+                <option value="habitaciones_ocup">Habitaciones Ocupadas</option>
+                <option value="plazas_disp">Plazas Disponibles</option>
+                <option value="plazas_ocup">Plazas Ocupadas</option>
+              </select>
+              <button id="play" class="btn btn-info" style="margin-top:-10px">&#9658;</button>
+            </div>
+          </div>
 
-          <h3>Las más</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Ciudad</th>
-                <th>Valor</th>
-              </tr>
-            </thead>
-            <tbody data-bind="foreach: topRanking">
-            <tr>
-              <td data-bind="text: ciudad"></td>
-              <td data-bind="text: valor"></td>
-            </tr>
-            </tbody>
-          </table>
+          <div class="row">
+            <div class="col-lg-12">
 
-          <h3>Las menos</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Ciudad</th>
-                <th>Valor</th>
-              </tr>
-            </thead>
-            <tbody data-bind="foreach: bottomRanking">
-            <tr>
-              <td data-bind="text: ciudad"></td>
-              <td data-bind="text: valor"></td>
-            </tr>
-            </tbody>
-          </table>
+              <h2>Ranking de ciudades</h2>
+
+              <h3>Las más</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Ciudad</th>
+                    <th>Valor</th>
+                  </tr>
+                </thead>
+                <tbody data-bind="foreach: topRanking">
+                <tr>
+                  <td data-bind="text: ciudad"></td>
+                  <td data-bind="text: valor"></td>
+                </tr>
+                </tbody>
+              </table>
+
+              <h3>Las menos</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Ciudad</th>
+                    <th>Valor</th>
+                  </tr>
+                </thead>
+                <tbody data-bind="foreach: bottomRanking">
+                <tr>
+                  <td data-bind="text: ciudad"></td>
+                  <td data-bind="text: valor"></td>
+                </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
 
         </div>
       </div>
 
       <div class="footer">
+
         <p class="text-center">
-          Programación: <a href="http://twitter.com/palamago" target="_blank">@palamago</a> | Diseño: <a href="http://twitter.com/abad" target="_blank">@abad</a>
+          Equipo:
+          <a href="http://twitter.com/palamago" target="_blank">@palamago</a>,
+          <a href="http://twitter.com/alan_reid" target="_blank">@alan_reid</a>,
+          <a href="http://twitter.com/develsas" target="_blank">@develsas</a>,
+          <a href="http://twitter.com/wfrank" target="_blank">@wfrank</a>
+           | Powered by <a href="http://www.nardoz.com" target="_blank">#NARDOZ</a>
         </p>
+
         <p class="text-center">
-          Construído con información del <a href="http://www.censo2010.indec.gov.ar/" target="_blank">Censo 2010</a> basado en la <a href="http://interactivos.lanacion.com.ar/censo/" target="_blank">aplicación interactiva</a> creada por el equipo de <a href="http://twitter.com/LNData" target="_blank">@LNData</a>
+          Construído con información del Ministerio de Turismo<br />
+          en el Hackaton ProgramAR (3/8/2013) |  <a href="http://www.datospublicos.gob.ar" target="_blank">Datos Públicos</a>
         </p>
       </div>
 
-    </div> <!-- /container -->
+    </div>
 
-
-    <a id="full-screen-btn" class="btn btn-default btn-mini"><span class="glyphicon glyphicon-resize-full"></span>
-    </a>
+    <a id="full-screen-btn" class="btn btn-default btn-mini"><span class="glyphicon glyphicon-resize-full"></span></a>
 
     <script src="js/underscore.js"></script>
     <script src="js/jquery-2.0.3.min.js"></script>
