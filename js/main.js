@@ -76,10 +76,7 @@ var DatavizTurismo;
 
   DatavizTurismo.init = function () {
     //Init map
-    DatavizTurismo.map = d3.datavizTurismo('map-container',$('#map-container').width());
-
-    //Parsing Data
-    DatavizTurismo.retrieveData();
+    DatavizTurismo.map = d3.datavizTurismo('map-container',$('#map-container').width(),DatavizTurismo.retrieveData);
 
     //Init button
     DatavizTurismo.$filter.on('change',DatavizTurismo.filterData);
@@ -167,9 +164,7 @@ var DatavizTurismo;
     $.getJSON('data/ocupacion_hotelera.json', function(j){
       DatavizTurismo.data = j.rows;
       DatavizTurismo.filter.setDataset(j.rows);
-
-      setTimeout(DatavizTurismo.filterData,2000);
-
+      DatavizTurismo.filterData();
     });
 
   };
