@@ -184,6 +184,10 @@ var DatavizTurismo;
     DatavizTurismo.topRanking = filter.ranking(j, filterField, 'desc', limit);
     DatavizTurismo.botttomRanking = filter.ranking(j, filterField, 'asc', limit);
 
+    var j = _.sortBy(j, function(item) {
+      return item[filterField];
+    }).reverse();
+
     DatavizTurismo.updateMap(j);
   };
 
