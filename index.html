@@ -18,6 +18,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="css/iThing-min.css" rel="stylesheet">
 
     <link href="css/slider.css" rel="stylesheet">
 
@@ -44,21 +45,16 @@
           </div>
         </div>
         <div class="col-lg-6">
-          <select id="fecha-desde">
-            <option value="01-2012">01-2012</option>
-            <option value="02-2012">02-2012</option>
-            <option value="03-2012">03-2012</option>
-          </select>
-          <select id="fecha-hasta">
-            <option value="01-2012">01-2012</option>
-            <option value="02-2012">02-2012</option>
-            <option value="03-2012">03-2012</option>
-          </select>
-          <select id="filter">
+
+          <div id="dateSelector" style="margin-top:50px"></div>
+          <input type="hidden" id="fecha-desde" value="04-2012" />
+          <input type="hidden" id="fecha-hasta" value="07-2012" />
+
+          <select id="filter" style="margin-top:50px">
             <option value="establecimientos">establecimientos</option>
             <option value="viajeros">viajeros</option>
           </select>
-          <a id="consultar" class="btn btn-large" href="javascript:;">Consultar</a>
+
           <h1>Argentina <small>, turismo!...</small></h1>
         </div>
       </div>
@@ -80,6 +76,8 @@
 
     <script src="js/underscore.js"></script>
     <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="js/jQDateRangeSlider-min.js"></script>
     <script src='js/knockout-2.3.0.js'></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-slider.js"></script>
@@ -89,6 +87,6 @@
     <script src="js/d3.datavizTurismo.js"></script>
     <script src="js/filter.js"></script>
     <script src="js/main.js"></script>
-    
+
   </body>
 </html>
