@@ -161,6 +161,12 @@ circle.ciudad {
 	box-shadow: 0 0 0 7px rgba(255, 211, 0, 0.9), 0 0 7px 7px rgba(0, 0, 0, 0.25), inset 0 0 40px 20px rgba(0, 0, 0, 0.3);
 }
 
+circle.hover{
+	fill:#A3C725;
+	stroke:#A3C725;
+	cursor:help;
+}
+
 g.departamentos path,
 g.amba path {
 	stroke: #E1e1e1;

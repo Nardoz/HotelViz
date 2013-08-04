@@ -70,6 +70,8 @@ d3.datavizTurismo = function(containerId,width,cb) {
           .scaleExtent([1, 8])
           .on("zoom", zoomed);
 
+        svg.call(zoom).on("zoom", zoomed);
+
         //mapa
         mapa_svg = svg.append("g").classed("mapa", !0).attr("transform", "translate(0, 0)");
 
@@ -135,12 +137,6 @@ d3.datavizTurismo = function(containerId,width,cb) {
           .attr("d", path)
           .attr("class", "departamento");
 
-        svg.append("rect")
-              .attr("class", "overlay")
-              .attr("width", width)
-              .attr("height", height)
-              .call(zoom);
-
          //Tooltip
         var m = mapa_svg.selectAll("path.departamento");
 
@@ -170,8 +166,8 @@ d3.datavizTurismo = function(containerId,width,cb) {
   _init();
 
   return {
-
-    update: function(ciudades,field){
+   
+    update: function(ciudades,field,name){
 
       if(ciudades.length === 0) {
         return;
@@ -200,6 +196,21 @@ d3.datavizTurismo = function(containerId,width,cb) {
       });
 
       svg.selectAll('circle.ciudad')
+      .on("mouseover", function(d) {
+              var innerHTML = d.ciudad + '<br/><strong>' + name + '<br/>' + DatavizTurismo.dotSeparateNumber(d[field]) + '</strong>';        
+              tooltip.transition()        
+                     .duration(100)      
+                     .style("opacity", .9)
+
+              tooltip.html(innerHTML);
+              $(this)[0].classList.add("hover");
+          })
+          .on("mouseout", function(d) {
+              $(this)[0].classList.remove("hover");
+              tooltip.transition()        
+                      .duration(200)      
+                      .style("opacity", 0);   
+          })
       .transition(500)
       .attr("r",function(d){
         return r(d[field]);
