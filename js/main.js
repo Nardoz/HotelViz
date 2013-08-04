@@ -76,17 +76,60 @@ var DatavizTurismo;
 
   DatavizTurismo.init = function () {
     //Init map
-    DatavizTurismo.map = d3.datavizTurismo('map-container',$('#map-container').width());
-
-    //Parsing Data
-    DatavizTurismo.retrieveData();
+    DatavizTurismo.map = d3.datavizTurismo('map-container',$('#map-container').width(),DatavizTurismo.retrieveData);
 
     //Init button
-    DatavizTurismo.$consultarBtn.on('click',DatavizTurismo.filterData);
+    DatavizTurismo.$filter.on('change',DatavizTurismo.filterData);
     DatavizTurismo.$twitterButton.on('click',DatavizTurismo.shareTwitter);
     DatavizTurismo.$facebookButton.on('click',DatavizTurismo.shareFacebook);
     DatavizTurismo.$googleButton.on('click',DatavizTurismo.shareGoogle);
     DatavizTurismo.$fullScreenBtb.on('click',DatavizTurismo.fullScreen);
+
+
+    var months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+
+    $('#dateSelector').dateRangeSlider({
+      bounds: {
+        min: new Date(2012, 0, 1),
+        max: new Date(2012, 11, 30)
+      },
+      defaultValues: {
+        min: new Date(2012, 4, 1),
+        max: new Date(2012, 7, 31)
+      },
+      arrows: true,
+      step:{
+        months: 1
+      },
+      formatter: function(val) {
+        var month = val.getMonth() + 1;
+        var year = val.getFullYear();
+
+        return month + '-' + year;
+      },
+      scales: [{
+        next: function(value) {
+          var next = new Date(value);
+          return new Date(next.setMonth(value.getMonth() + 1));
+        },
+        label: function(value) {
+          return months[value.getMonth()];
+        },
+        format: function(tickContainer, tickStart, tickEnd) {
+          tickContainer.addClass('month');
+        }
+      }]
+    });
+
+    $('#dateSelector').bind('valuesChanged', function(e, data) {
+      var start = (data.values.min.getMonth() + 1) + '-' + data.values.min.getFullYear();
+      var end   = (data.values.max.getMonth() + 1) + '-' + data.values.max.getFullYear();
+
+      DatavizTurismo.$desdeBtn.val(start);
+      DatavizTurismo.$hastaBtn.val(end);
+      DatavizTurismo.filterData();
+    });
+
   };
 
   DatavizTurismo.retrieveData = function(){
