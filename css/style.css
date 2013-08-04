@@ -345,3 +345,7 @@ p.texto-resumen .important2{
 .month {
 	font-size: 7pt;
 }
+
+#slider-container{
+	height: 150px;
+}

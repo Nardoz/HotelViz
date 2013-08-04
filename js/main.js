@@ -130,6 +130,8 @@ var DatavizTurismo;
       DatavizTurismo.filterData();
     });
 
+    DatavizTurismo.$filter.selectpicker();
+
   };
 
   DatavizTurismo.retrieveData = function(){

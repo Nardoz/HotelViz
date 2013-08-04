@@ -1,7 +1,7 @@
 d3.datavizTurismo = function(containerId,width,cb) {
 
   //Init vars
-  var height=700,
+  var height=750,
     centered,
     projection,
     path,
