@@ -74,7 +74,7 @@ var DatasetFilter = function() {
         ciudad: ''
       });
 
-      reduced.estadia = reduced.estadiaAcum / reduced.estadiaCount;
+      reduced.estadia = (reduced.estadiaAcum / reduced.estadiaCount).toFixed(2);;
 
       data.push(reduced);
 
