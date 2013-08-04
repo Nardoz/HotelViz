@@ -83,6 +83,8 @@ var DatasetFilter = function() {
        */
       var calculateAverage = function(data, totals, fields) {
 
+        totals = _.clone(totals);
+
         if (_.isString(fields)) fields = fields.split(',');
         if (! _.isArray(fields)) fields = [fields];
 
@@ -91,7 +93,7 @@ var DatasetFilter = function() {
             return row[field] !== undefined;
           }).length;
 
-          totals[field] = totals[field] / count;
+          totals[field] = parseFloat((totals[field] / count).toFixed(2));
         });
 
         return totals;

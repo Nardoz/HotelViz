@@ -53,15 +53,7 @@ var DatavizTurismo;
 
   DatavizTurismo.filter = new DatasetFilter();
 
-  DatavizTurismo.topRanking = [];
-  DatavizTurismo.bottomRanking = [];
-
-  DatavizTurismo.bindings = {
-    topRanking    : [],
-    bottomRanking : [],
-    cities        : ko.observable([]),
-    filterField   : ko.observable('')
-  };
+  DatavizTurismo.bindings = {};
 
   var FilterOption = function(name, id, icon) {
     this.name = name;
@@ -81,22 +73,6 @@ var DatavizTurismo;
     DatavizTurismo.$fullScreenBtb.on('click',DatavizTurismo.fullScreen);
 
     var months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-
-    DatavizTurismo.bindings.topRanking = ko.computed(function() {
-      var cities      = DatavizTurismo.bindings.cities(),
-          filterField = DatavizTurismo.bindings.filterField(),
-          limit       = DatavizTurismo.rankingLimit;
-      return DatavizTurismo.filter.ranking(cities, filterField, 'desc', limit);
-    });
-
-    DatavizTurismo.bindings.bottomRanking = ko.computed(function() {
-      var cities      = DatavizTurismo.bindings.cities(),
-          filterField = DatavizTurismo.bindings.filterField(),
-          limit       = DatavizTurismo.rankingLimit;
-      return DatavizTurismo.filter.ranking(cities, filterField, 'asc', limit);
-    });
-
-    ko.applyBindings(DatavizTurismo.bindings);
 
     $('#dateSelector').dateRangeSlider({
       bounds: {
@@ -180,29 +156,25 @@ var DatavizTurismo;
 
   DatavizTurismo.filterData = function(){
     var filter = DatavizTurismo.filter;
-    var cities = filter.filter(
+    var j = filter.filter(
       DatavizTurismo.$desdeBtn.val(),
       DatavizTurismo.$hastaBtn.val()
     );
 
-    var filterField = DatavizTurismo.$filter.val();
+    var filterField = DatavizTurismo.$filter.val(),
+        limit = DatavizTurismo.rankingLimit;
 
     // agregamos el campo valor con el filterField especificado
-    _.each(cities, function(row) {
+    _.each(j, function(row) {
       row.valor = row[filterField];
     });
 
-    cities = _.sortBy(cities, function(item) {
-      return item[filterField];
-    }).reverse();
+    DatavizTurismo.topRanking = filter.ranking(j, filterField, 'desc', limit);
+    DatavizTurismo.botttomRanking = filter.ranking(j, filterField, 'asc', limit);
 
-    DatavizTurismo.updateMap(cities);
+    DatavizTurismo.updateMap(j);
 
-    DatavizTurismo.bindings.filterField(filterField);
-    DatavizTurismo.bindings.cities(cities);
-
-    DatasetChart.graph(DatavizTurismo.bindings.topRanking());
-
+    DatasetChart.graph(DatavizTurismo.topRanking);
   };
 
   DatavizTurismo.fullScreen = function() {
